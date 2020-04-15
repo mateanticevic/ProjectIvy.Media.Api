@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29411.108
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectIvy.Media.Api", "ProjectIvy.Media.Api\ProjectIvy.Media.Api.csproj", "{FD71DC62-C2BB-44CE-AF75-B9F4ABED2D21}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectIvy.Media.Core", "ProjectIvy.Media.Core\ProjectIvy.Media.Core.csproj", "{67B561C8-0986-4555-AB09-81CD42481099}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FD71DC62-C2BB-44CE-AF75-B9F4ABED2D21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD71DC62-C2BB-44CE-AF75-B9F4ABED2D21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD71DC62-C2BB-44CE-AF75-B9F4ABED2D21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD71DC62-C2BB-44CE-AF75-B9F4ABED2D21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67B561C8-0986-4555-AB09-81CD42481099}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67B561C8-0986-4555-AB09-81CD42481099}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67B561C8-0986-4555-AB09-81CD42481099}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67B561C8-0986-4555-AB09-81CD42481099}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D5A2AC35-BE45-4FD0-8F0D-EB43A42E9A72}
+	EndGlobalSection
+EndGlobal
