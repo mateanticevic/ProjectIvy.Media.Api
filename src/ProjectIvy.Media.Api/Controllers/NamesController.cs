@@ -8,19 +8,16 @@ namespace ProjectIvy.Media.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class TitlesController : ControllerBase
+    public class NamesController : ControllerBase
     {
         private readonly ITitleHandler _titleHandler;
 
-        public TitlesController(ITitleHandler titleHandler)
+        public NamesController(ITitleHandler titleHandler)
         {
             _titleHandler = titleHandler;
         }
 
-        [HttpGet("{id}")]
-        public async Task<Title> Get(string id) => await _titleHandler.Get(id);
-
-        [HttpGet("{id}/seasons/{season}/episodes")]
-        public async Task<IEnumerable<Title>> GetSeasonEpisodes(string id, short season) => await _titleHandler.GetEpisodesBySeason(id, season);
+        [HttpGet("{nameId}/titles")]
+        public async Task<IEnumerable<Title>> Get(string nameId) => await _titleHandler.Get(nameId, null);
     }
 }

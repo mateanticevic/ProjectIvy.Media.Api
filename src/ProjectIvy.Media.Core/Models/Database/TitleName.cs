@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace ProjectIvy.Media.Core.Models.Database
+﻿namespace ProjectIvy.Media.Core.Models.Database
 {
     public partial class TitleName
     {

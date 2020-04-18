@@ -146,8 +146,6 @@ namespace ProjectIvy.Media.Core.Models.Database
 
                 entity.Property(e => e.Genres).HasMaxLength(250);
 
-                entity.Property(e => e.ParentTitle).HasMaxLength(10);
-
                 entity.Property(e => e.ValueId)
                     .IsRequired()
                     .HasMaxLength(10)
@@ -192,7 +190,7 @@ namespace ProjectIvy.Media.Core.Models.Database
                     .HasConstraintName("FK_TitleName_Role");
 
                 entity.HasOne(d => d.Title)
-                    .WithMany(p => p.TitleName)
+                    .WithMany(p => p.TitleNames)
                     .HasForeignKey(d => d.TitleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_TitleName_Title");

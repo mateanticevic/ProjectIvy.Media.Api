@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace ProjectIvy.Media.Core.Models.Database
 {
@@ -7,7 +6,7 @@ namespace ProjectIvy.Media.Core.Models.Database
     {
         public Title()
         {
-            TitleName = new HashSet<TitleName>();
+            TitleNames = new HashSet<TitleName>();
         }
 
         public int Id { get; set; }
@@ -22,10 +21,10 @@ namespace ProjectIvy.Media.Core.Models.Database
         public int TitleTypeId { get; set; }
         public short? SeasonNumber { get; set; }
         public int? EpisodeNumber { get; set; }
-        public string ParentTitle { get; set; }
+        public int? ParentTitleId { get; set; }
         public int? NumberOfVotes { get; set; }
         public decimal? AverageRating { get; set; }
 
-        public virtual ICollection<TitleName> TitleName { get; set; }
+        public virtual ICollection<TitleName> TitleNames { get; set; }
     }
 }
