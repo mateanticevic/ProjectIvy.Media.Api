@@ -27,7 +27,7 @@ namespace ProjectIvy.Media.Core.Models.Database
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=db.anticevic.net;Database=MediaInfo;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=db.anticevic.net;Database=MediaInfo;User Id=MediaInfoReader;Password=123456;");
             }
         }
 
