@@ -22,7 +22,8 @@
       "launchBrowser": true,
       "launchUrl": "weatherforecast",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "CONNECTION_STRING_MEDIA": "Server=db.anticevic.net;Database=MediaInfo;User Id=MediaInfoReader;Password=123456;"
       },
       "applicationUrl": "http://localhost:5000"
     },
@@ -30,7 +31,6 @@
       "commandName": "Docker",
       "launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/weatherforecast",
-      "environmentVariables": {},
       "httpPort": 63346
     }
   }

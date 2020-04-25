@@ -11,9 +11,9 @@ namespace ProjectIvy.Media.Core.Models.View
             PrimaryTitle = t.PrimaryTitle;
             Runtime = t.Runtime;
             Rating = t.AverageRating;
-            Cast = t.TitleNames.Where(x => IsPartOfCast((RoleId)x.RoleId)).OrderBy(x => x.Ordering).Select(x => new NameRole(new Name(x.Name), new Role(x.Role)));
-            Directors = t.TitleNames.Where(x => x.RoleId == (int)RoleId.Director).OrderBy(x => x.Ordering).Select(x => new Name(x.Name));
-            Writers = t.TitleNames.Where(x => x.RoleId == (int)RoleId.Writer).OrderBy(x => x.Ordering).Select(x => new Name(x.Name));
+            Cast = t.TitleName.Where(x => IsPartOfCast((RoleId)x.RoleId)).OrderBy(x => x.Ordering).Select(x => new NameRole(new Name(x.Name), new Role(x.Role)));
+            Directors = t.TitleName.Where(x => x.RoleId == (int)RoleId.Director).OrderBy(x => x.Ordering).Select(x => new Name(x.Name));
+            Writers = t.TitleName.Where(x => x.RoleId == (int)RoleId.Writer).OrderBy(x => x.Ordering).Select(x => new Name(x.Name));
             Episode = t.EpisodeNumber;
             Season = t.SeasonNumber;
             Id = t.ValueId;

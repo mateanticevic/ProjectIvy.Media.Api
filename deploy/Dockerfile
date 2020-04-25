@@ -4,14 +4,14 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["ProjectIvy.Media.Api.csproj", ""]
-RUN dotnet restore "./ProjectIvy.Media.Api.csproj"
+#COPY ["src/ProjectIvy.Media.Api/ProjectIvy.Media.Api.csproj", ""]
+#RUN dotnet restore "./ProjectIvy.Media.Api.csproj"
 COPY . .
 WORKDIR "/src/."
-RUN dotnet build "ProjectIvy.Media.Api.csproj" -c Release -o /app/build
+RUN dotnet build "src/ProjectIvy.Media.Api/ProjectIvy.Media.Api.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "ProjectIvy.Media.Api.csproj" -c Release -o /app/publish
+RUN dotnet publish "src/ProjectIvy.Media.Api/ProjectIvy.Media.Api.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app

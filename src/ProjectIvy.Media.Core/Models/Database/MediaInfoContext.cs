@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace ProjectIvy.Media.Core.Models.Database
 {
@@ -13,10 +14,11 @@ namespace ProjectIvy.Media.Core.Models.Database
         {
         }
 
-        public virtual DbSet<Akas> Akas { get; set; }
-        public virtual DbSet<Crew> Crew { get; set; }
+        public virtual DbSet<Aka> Aka { get; set; }
         public virtual DbSet<Genre> Genre { get; set; }
+        public virtual DbSet<Language> Language { get; set; }
         public virtual DbSet<Name> Name { get; set; }
+        public virtual DbSet<Region> Region { get; set; }
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<Title> Title { get; set; }
         public virtual DbSet<TitleGenre> TitleGenre { get; set; }
@@ -27,66 +29,23 @@ namespace ProjectIvy.Media.Core.Models.Database
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=db.anticevic.net;Database=MediaInfo;User Id=MediaInfoReader;Password=123456;");
+                optionsBuilder.UseSqlServer(Environment.GetEnvironmentVariable("CONNECTION_STRING_MEDIA"));
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Akas>(entity =>
+            modelBuilder.Entity<Aka>(entity =>
             {
-                entity.HasNoKey();
+                entity.ToTable("Aka", "Imdb");
 
-                entity.ToTable("akas");
+                entity.Property(e => e.Title).IsRequired();
 
-                entity.Property(e => e.Attributes)
-                    .IsRequired()
-                    .HasColumnName("attributes");
-
-                entity.Property(e => e.IsOriginalTitle)
-                    .HasColumnName("isOriginalTitle")
-                    .HasMaxLength(10);
-
-                entity.Property(e => e.Language)
-                    .IsRequired()
-                    .HasColumnName("language")
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.Ordering).HasColumnName("ordering");
-
-                entity.Property(e => e.Region)
-                    .IsRequired()
-                    .HasColumnName("region")
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.Title)
-                    .IsRequired()
-                    .HasColumnName("title");
-
-                entity.Property(e => e.TitleId)
-                    .IsRequired()
-                    .HasColumnName("titleId")
-                    .HasMaxLength(10);
-
-                entity.Property(e => e.Types)
-                    .IsRequired()
-                    .HasColumnName("types");
-            });
-
-            modelBuilder.Entity<Crew>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToTable("crew");
-
-                entity.Property(e => e.Directors).HasColumnName("directors");
-
-                entity.Property(e => e.Tconst)
-                    .IsRequired()
-                    .HasColumnName("tconst")
-                    .HasMaxLength(10);
-
-                entity.Property(e => e.Writers).HasColumnName("writers");
+                entity.HasOne(d => d.TitleNavigation)
+                    .WithMany(p => p.Aka)
+                    .HasForeignKey(d => d.TitleId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Aka_Title");
             });
 
             modelBuilder.Entity<Genre>(entity =>
@@ -106,6 +65,21 @@ namespace ProjectIvy.Media.Core.Models.Database
                     .HasMaxLength(50);
             });
 
+            modelBuilder.Entity<Language>(entity =>
+            {
+                entity.ToTable("Language", "Imdb");
+
+                entity.HasIndex(e => e.ValueId)
+                    .HasName("IX_Language")
+                    .IsUnique();
+
+                entity.Property(e => e.Name).HasMaxLength(50);
+
+                entity.Property(e => e.ValueId)
+                    .IsRequired()
+                    .HasMaxLength(5);
+            });
+
             modelBuilder.Entity<Name>(entity =>
             {
                 entity.ToTable("Name", "Imdb");
@@ -117,6 +91,19 @@ namespace ProjectIvy.Media.Core.Models.Database
                 entity.Property(e => e.ValueId)
                     .IsRequired()
                     .HasMaxLength(10);
+            });
+
+            modelBuilder.Entity<Region>(entity =>
+            {
+                entity.ToTable("Region", "Imdb");
+
+                entity.HasIndex(e => e.ValueId)
+                    .HasName("IX_Region")
+                    .IsUnique();
+
+                entity.Property(e => e.ValueId)
+                    .IsRequired()
+                    .HasMaxLength(5);
             });
 
             modelBuilder.Entity<Role>(entity =>
@@ -144,28 +131,31 @@ namespace ProjectIvy.Media.Core.Models.Database
 
                 entity.Property(e => e.AverageRating).HasColumnType("numeric(3, 1)");
 
-                entity.Property(e => e.Genres).HasMaxLength(250);
-
                 entity.Property(e => e.ValueId)
                     .IsRequired()
                     .HasMaxLength(10)
                     .IsFixedLength();
+
+                entity.HasOne(d => d.ParentTitle)
+                    .WithMany(p => p.InverseParentTitle)
+                    .HasForeignKey(d => d.ParentTitleId)
+                    .HasConstraintName("FK_Title_Title_ParentTitle");
             });
 
             modelBuilder.Entity<TitleGenre>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => new { e.TitleId, e.GenreId });
 
                 entity.ToTable("TitleGenre", "Imdb");
 
                 entity.HasOne(d => d.Genre)
-                    .WithMany()
+                    .WithMany(p => p.TitleGenre)
                     .HasForeignKey(d => d.GenreId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_TitleGenre_Genre");
 
                 entity.HasOne(d => d.Title)
-                    .WithMany()
+                    .WithMany(p => p.TitleGenre)
                     .HasForeignKey(d => d.TitleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_TitleGenre_Title");
@@ -173,7 +163,7 @@ namespace ProjectIvy.Media.Core.Models.Database
 
             modelBuilder.Entity<TitleName>(entity =>
             {
-                entity.HasKey(e => new { e.TitleId, e.NameId });
+                entity.HasKey(e => new { e.TitleId, e.NameId, e.Ordering });
 
                 entity.ToTable("TitleName", "Imdb");
 
@@ -190,7 +180,7 @@ namespace ProjectIvy.Media.Core.Models.Database
                     .HasConstraintName("FK_TitleName_Role");
 
                 entity.HasOne(d => d.Title)
-                    .WithMany(p => p.TitleNames)
+                    .WithMany(p => p.TitleName)
                     .HasForeignKey(d => d.TitleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_TitleName_Title");

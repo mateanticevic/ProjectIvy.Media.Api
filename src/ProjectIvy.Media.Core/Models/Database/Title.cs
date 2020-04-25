@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ProjectIvy.Media.Core.Models.Database
 {
@@ -6,7 +7,10 @@ namespace ProjectIvy.Media.Core.Models.Database
     {
         public Title()
         {
-            TitleNames = new HashSet<TitleName>();
+            Aka = new HashSet<Aka>();
+            InverseParentTitle = new HashSet<Title>();
+            TitleGenre = new HashSet<TitleGenre>();
+            TitleName = new HashSet<TitleName>();
         }
 
         public int Id { get; set; }
@@ -17,14 +21,17 @@ namespace ProjectIvy.Media.Core.Models.Database
         public short? StartYear { get; set; }
         public short? EndYear { get; set; }
         public short? Runtime { get; set; }
-        public string Genres { get; set; }
         public int TitleTypeId { get; set; }
         public short? SeasonNumber { get; set; }
         public int? EpisodeNumber { get; set; }
-        public int? ParentTitleId { get; set; }
         public int? NumberOfVotes { get; set; }
         public decimal? AverageRating { get; set; }
+        public int? ParentTitleId { get; set; }
 
-        public virtual ICollection<TitleName> TitleNames { get; set; }
+        public virtual Title ParentTitle { get; set; }
+        public virtual ICollection<Aka> Aka { get; set; }
+        public virtual ICollection<Title> InverseParentTitle { get; set; }
+        public virtual ICollection<TitleGenre> TitleGenre { get; set; }
+        public virtual ICollection<TitleName> TitleName { get; set; }
     }
 }

@@ -14,7 +14,7 @@ namespace ProjectIvy.Media.Core.Business.Implementations
         {
             using (var context = new MediaInfoContext())
             {
-                var title = await context.Title.Include(x => x.TitleNames).Include("TitleNames.Role").Include("TitleNames.Name").SingleOrDefaultAsync(x => x.ValueId == id);
+                var title = await context.Title.Include(x => x.TitleName).Include("TitleName.Role").Include("TitleName.Name").SingleOrDefaultAsync(x => x.ValueId == id);
                 return new Models.View.Title(title);
             }
         }

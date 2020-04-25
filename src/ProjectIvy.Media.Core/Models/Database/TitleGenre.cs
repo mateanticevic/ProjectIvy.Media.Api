@@ -1,4 +1,7 @@
-﻿namespace ProjectIvy.Media.Core.Models.Database
+﻿using System;
+using System.Collections.Generic;
+
+namespace ProjectIvy.Media.Core.Models.Database
 {
     public partial class TitleGenre
     {

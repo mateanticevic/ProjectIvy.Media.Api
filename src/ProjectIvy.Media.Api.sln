@@ -7,6 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectIvy.Media.Api", "Pro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectIvy.Media.Core", "ProjectIvy.Media.Core\ProjectIvy.Media.Core.csproj", "{67B561C8-0986-4555-AB09-81CD42481099}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{29A3DFDB-A378-4AA9-9597-17F97CC46FAA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deploy", "deploy", "{45CCF884-4366-4176-9FB4-1DE4515A73DC}"
+	ProjectSection(SolutionItems) = preProject
+		..\deploy\Dockerfile = ..\deploy\Dockerfile
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +31,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FD71DC62-C2BB-44CE-AF75-B9F4ABED2D21} = {29A3DFDB-A378-4AA9-9597-17F97CC46FAA}
+		{67B561C8-0986-4555-AB09-81CD42481099} = {29A3DFDB-A378-4AA9-9597-17F97CC46FAA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D5A2AC35-BE45-4FD0-8F0D-EB43A42E9A72}
