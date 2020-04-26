@@ -10,14 +10,19 @@ namespace ProjectIvy.Media.Api.Controllers
     [Route("[controller]")]
     public class NamesController : ControllerBase
     {
+        private readonly INameHandler _nameHandler;
         private readonly ITitleHandler _titleHandler;
 
-        public NamesController(ITitleHandler titleHandler)
+        public NamesController(INameHandler nameHandler, ITitleHandler titleHandler)
         {
+            _nameHandler = nameHandler;
             _titleHandler = titleHandler;
         }
 
+        [HttpGet("{nameId}")]
+        public async Task<Name> Get(string nameId) => await _nameHandler.Get(nameId);
+
         [HttpGet("{nameId}/titles")]
-        public async Task<IEnumerable<Title>> Get(string nameId) => await _titleHandler.Get(nameId, null);
+        public async Task<IEnumerable<Title>> GetTitles(string nameId) => await _titleHandler.Get(nameId, null);
     }
 }

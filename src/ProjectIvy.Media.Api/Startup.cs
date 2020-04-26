@@ -20,6 +20,7 @@ namespace ProjectIvy.Media.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddScoped<INameHandler, NameHandler>();
             services.AddScoped<ITitleHandler, TitleHandler>();
         }
 
